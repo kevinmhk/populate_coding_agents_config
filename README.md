@@ -2,6 +2,13 @@
 
 This utility centralizes and automates the management of configuration files (`AGENTS.md` and skills) for various coding agent CLIs. It allows you to maintain a single source of truth for your agent configurations and automatically distributes them to the correct locations. It can optionally sync these changes with `chezmoi`.
 
+## Key Features
+
+- **Centralized Management**: Maintain one `AGENTS.md` and one set of skills for all your agents.
+- **Smart Diffing**: The script compares source and target files before copying. It only updates files that have actually changed, preserving timestamps and reducing unnecessary operations.
+- **Granular Skill Updates**: Skills are managed at the subdirectory level. If you have multiple skills in your target directory, the script will only update the ones present in your templates, leaving others untouched.
+- **Chezmoi Integration**: Automatically runs `chezmoi add` on updated files to keep your dotfiles in sync.
+
 ## Project Structure
 
 - **`config/`**: Contains the configuration mapping file.
