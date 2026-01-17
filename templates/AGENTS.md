@@ -12,6 +12,7 @@
 - Deployment: Vercel
 - Cross-Platform UI Framework: Flutter
 - Source Control: Git
+- Database: SQLite, PostgreSQL
 
 # Global Settings
 - Workspace: The global workspace that contains all my projects is located at `~/workspaces`.
@@ -51,6 +52,16 @@ The following philosophies are applicable when the task type and project type is
 - **DRY** - Adopt the "Don't repeat yourself" principle.
 - Adopt **Design by contract** (DbC), also known as **contract programming**, **programming by contract** and **design-by-contract programming**.
 - Adopt **SOLID** when working on object-oriented programming: - Single responsibility principle, Open-closed principle, Liskov substitution principle, Interface segregation principle, and Dependency inversion principle.
+
+# Python
+- Never install Python packages globally. Always use a project-local virtual environment
+- Always start a Python project by using either `venv` or `uv` for Python virtual environment isolation
+- Always run package installs via the environment’s interpreter (`python -m pip ...`) or via `uv` to avoid accidentally using the wrong `pip`.
+- Before installing or running anything, verify the interpreter is the project venv:
+  - macOS/Linux: `which python` and `python -V`
+  - Windows: `where python` and `python -V`
+  - It is common for `python` and `python3` to be a shell alias. Run `type python` and `type python3` to check whether shell alias is overriding venv Settings
+  - Use absolute path of the Python in the virtual environment if needed 
 
 # Source Control
 - Do NOT stage, commit, or push files unless explicitly instructed by the human user.
