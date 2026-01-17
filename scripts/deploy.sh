@@ -51,20 +51,35 @@ while IFS='|' read -r agent_name target_agents_md target_skills_dir || [ -n "$ag
             mkdir -p "$agent_dir"
         fi
 
-        cp "$SOURCE_AGENTS_MD" "$target_agents_md"
-        if [ $? -eq 0 ]; then
-            echo "     [OK] Copied AGENTS.md"
-            # Add to chezmoi if enabled
-            if [ "$USE_CHEZMOI" = "true" ]; then
-                if command -v chezmoi &> /dev/null; then
-                    chezmoi add "$target_agents_md"
-                    echo "     [OK] Added to chezmoi"
-                else
-                    echo "     [WARN] chezmoi not found, skipping 'chezmoi add'"
-                fi
+        should_copy=true
+        if [ -f "$target_agents_md" ]; then
+            # Check for differences
+            if diff "$target_agents_md" "$SOURCE_AGENTS_MD" > /dev/null; then
+                echo "     [SKIP] Files are identical."
+                should_copy=false
+            else
+                echo "     [DIFF] Changes detected in AGENTS.md"
             fi
         else
-            echo "     [ERROR] Failed to copy AGENTS.md"
+            echo "     [NEW] Target file does not exist. Will create."
+        fi
+
+        if [ "$should_copy" = "true" ]; then
+            cp "$SOURCE_AGENTS_MD" "$target_agents_md"
+            if [ $? -eq 0 ]; then
+                echo "     [OK] Copied AGENTS.md"
+                # Add to chezmoi if enabled
+                if [ "$USE_CHEZMOI" = "true" ]; then
+                    if command -v chezmoi &> /dev/null; then
+                        chezmoi add "$target_agents_md"
+                        echo "     [OK] Added to chezmoi"
+                    else
+                        echo "     [WARN] chezmoi not found, skipping 'chezmoi add'"
+                    fi
+                fi
+            else
+                echo "     [ERROR] Failed to copy AGENTS.md"
+            fi
         fi
     else
         echo "  -> Skipping AGENTS.md (not configured)"
@@ -82,25 +97,48 @@ while IFS='|' read -r agent_name target_agents_md target_skills_dir || [ -n "$ag
         fi
 
         if [ -d "$target_skills_dir" ]; then
-            # Copy contents of source skills dir to target skills dir
-            # Using -R for recursive copy to handle subfolders (Requirement #3)
-            # We use . to copy contents including hidden files if any, or *
-            cp -R "$SOURCE_SKILLS_DIR/"* "$target_skills_dir/"
-            if [ $? -eq 0 ]; then
-                echo "     [OK] Copied skills"
-                 # Add to chezmoi if enabled
-                if [ "$USE_CHEZMOI" = "true" ]; then
-                    if command -v chezmoi &> /dev/null; then
-                        # chezmoi add on a directory adds it recursively (Requirement #3)
-                        chezmoi add "$target_skills_dir"
-                        echo "     [OK] Added skills to chezmoi"
+            # Iterate over each skill in the source template directory
+            # We assume subdirectories in templates/skills correspond to individual skills
+            for source_skill_path in "$SOURCE_SKILLS_DIR"/*; do
+                if [ -d "$source_skill_path" ]; then
+                    skill_name=$(basename "$source_skill_path")
+                    target_skill_path="$target_skills_dir/$skill_name"
+                    should_copy_skill=true
+
+                    if [ -d "$target_skill_path" ]; then
+                        # Compare specific skill directory
+                        if diff -qr "$target_skill_path" "$source_skill_path" > /dev/null 2>&1; then
+                            echo "     [SKIP] Skill '$skill_name' is identical."
+                            should_copy_skill=false
+                        else
+                            echo "     [DIFF] Changes detected in skill '$skill_name'"
+                        fi
                     else
-                        echo "     [WARN] chezmoi not found, skipping 'chezmoi add'"
+                        echo "     [NEW]  Skill '$skill_name' does not exist in target. Will create."
+                    fi
+
+                    if [ "$should_copy_skill" = "true" ]; then
+                        # Copy specific skill directory
+                        # cp -R source_dir target_parent/ copies source_dir into target_parent/source_dir
+                        cp -R "$source_skill_path" "$target_skills_dir/"
+                        
+                        if [ $? -eq 0 ]; then
+                            echo "     [OK]   Copied skill '$skill_name'"
+                            # Add to chezmoi if enabled
+                            if [ "$USE_CHEZMOI" = "true" ]; then
+                                if command -v chezmoi &> /dev/null; then
+                                    chezmoi add "$target_skill_path"
+                                    echo "     [OK]   Added '$skill_name' to chezmoi"
+                                else
+                                    echo "     [WARN] chezmoi not found, skipping 'chezmoi add'"
+                                fi
+                            fi
+                        else
+                            echo "     [ERROR] Failed to copy skill '$skill_name'"
+                        fi
                     fi
                 fi
-            else
-                echo "     [ERROR] Failed to copy skills"
-            fi
+            done
         else
              echo "     [ERROR] Failed to create target directory $target_skills_dir"
         fi
