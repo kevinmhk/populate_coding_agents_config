@@ -1,9 +1,9 @@
 # The User's Favorites and Preferences
 - IDE: Visual Studio Code
 - Editor: Vim, Neovim
-- Language: Python
-- JavaScript Framework: React, Next.js, and Vue.js
-- CSS Framework: Bootstrap
+- Language: Python, JavaScript, TypeScript
+- JavaScript Framework: React, Next.js, Vue.js
+- CSS Framework: Bootstrap, Tailwind
 - Component Library: Ant Design
 - CLI library: Typer
 - TUI library: Bubble Tea
@@ -13,6 +13,7 @@
 - Cross-Platform UI Framework: Flutter
 - Source Control: Git
 - Database: SQLite, PostgreSQL
+- Diagram and chart: Mermaid
 
 # Global Settings
 - Workspace: The global workspace that contains all my projects is located at `~/workspaces`.
@@ -100,11 +101,11 @@ Below is our preferred folder structure. Try to adopt this structure. However, n
 ```
 
 # Reading Files
-- Always read the entire file in full before making any file edit
+- Always read the entire file in full before making any file edit.
 
 # Writing Files
-- Default to ASCII when editing or creating files. Only introduce non-ASCII or other Unicode characters when there is a clear justification and the file already uses them.
+- Default to ASCII when editing or creating files. Only introduce non-ASCII or other Unicode characters when there is a clear justification and the file already uses them. Encode files as UTF-8 by default.
 
 # CLIs
-- You are equipped with the following CLIs to speed up and enhance your workflow: `fzf`, `rg`, `fd`, `bat`.
+- You are equipped with the following CLIs to speed up and enhance your workflow: `bat`, `difft`, `fd`, `firebase-tools`, `fzf`, `gh`, `git`, `lazysql`, `rg`, `tmux`, `zellij`.
 
