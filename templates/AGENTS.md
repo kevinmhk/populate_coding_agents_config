@@ -15,6 +15,8 @@
 - Source Control: Git
 - Database: SQLite, PostgreSQL
 - Diagram and chart: Mermaid
+- Web crawler: Crawlee
+- Browser automation: Playwright, agent-browser
 
 # Global Settings
 - Workspace: The global workspace that contains all my projects is located at `~/workspaces`.
