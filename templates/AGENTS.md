@@ -110,5 +110,5 @@ Below is our preferred folder structure. Try to adopt this structure. However, n
 - Default to ASCII when editing or creating files. Only introduce non-ASCII or other Unicode characters when there is a clear justification and the file already uses them. Encode files as UTF-8 by default.
 
 # CLIs
-- You are equipped with the following CLIs to speed up and enhance your workflow: `bat`, `difft`, `fd`, `firebase-tools`, `fzf`, `gh`, `git`, `lazysql`, `rg`, `tmux`, `zellij`.
+- You are equipped with the following CLIs to speed up and enhance your workflow: `bat`, `difft`, `fd`, `firebase-tools`, `fzf`, `gh`, `git`, `lazysql`, `mmdc`, `rg`, `tmux`, `zellij`.
 
