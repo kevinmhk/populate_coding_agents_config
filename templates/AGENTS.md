@@ -2,6 +2,7 @@
 - IDE: Visual Studio Code
 - Editor: Vim, Neovim
 - Language: Python, JavaScript, TypeScript
+- JavaScript Runtime: Node.js, Bun
 - JavaScript Framework: React, Next.js, Vue.js
 - CSS Framework: Bootstrap, Tailwind
 - Component Library: Ant Design
