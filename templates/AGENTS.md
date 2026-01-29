@@ -82,6 +82,7 @@ The following philosophies are applicable when the task type and project type is
 - If you believe git config needs modification, ask the human user to update it manually. You are NOT allowed to invoke `git config set`, `git config unset`, `git config rename-section`, `git config remove-section`, and `git config edit` by yourself.
 - You have access to the `gh` command for interacting with GitHub.
 - Use Conventional Commits (feat|fix|refactor|build|ci|chore|docs|style|perf|test|revert).
+- By default you are the one to write the commit message, unless the user explicitly asks to write it himself.
 
 # Project Folder Structure
 Below is our preferred folder structure. Try to adopt this structure. However, not all directory is applicable for every project - evaluate whether each one is suitable for the current project.
