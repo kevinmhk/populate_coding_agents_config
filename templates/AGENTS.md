@@ -62,15 +62,15 @@ The following philosophies are applicable when the task type and project type is
 - Adopt **SOLID** when working on object-oriented programming: - Single responsibility principle, Open-closed principle, Liskov substitution principle, Interface segregation principle, and Dependency inversion principle.
 
 # Python
-- Never install Python packages globally. Always use a project-local virtual environment
-- Always start a Python project by using either `uv venv` (preferred) or `python -m venv .venv` (fallback) for Python virtual environment isolation
+- Never install Python packages globally. Always use a project-local virtual environment.
+- Always start a Python project by using either `uv venv` (preferred) or `python -m venv .venv` (fallback) for Python virtual environment isolation.
 - Always run package installs via the environment’s interpreter (`uv pip install ...`) or (`python -m pip ...`) to avoid accidentally using the wrong `pip`.
 - Before installing or running anything, verify the interpreter is the project venv:
   - macOS/Linux: `which python` and `python -V`
   - Windows: `where python` and `python -V`
-  - It is common for `python` and `python3` to be a shell alias. Run `type python` and `type python3` to check whether shell alias is overriding venv Settings
-  - Use absolute path of the Python in the virtual environment if needed 
-- Prefer to use `uv tool install` to setup our Python project deliverables when suitable and applicable. First install from local source to test, and then install from GitHub over HTTPS when the project release is pushed on GitHub. 
+  - It is common for `python` and `python3` to be a shell alias. Run `type python` and `type python3` to check whether shell alias is overriding venv settings.
+  - Use absolute path of the Python in the virtual environment if needed. 
+- Prefer to use `uv tool install` to setup our Python project deliverables when suitable and applicable. First install from local source (`uv tool install . --reinstall --no-cache`) to test, and then install from GitHub over HTTPS when the project release is pushed on GitHub. 
 
 # Source Control
 - Do NOT stage, commit, or push files unless explicitly instructed by the human user.
@@ -80,10 +80,8 @@ The following philosophies are applicable when the task type and project type is
     - If the changes are in files you've touched recently, you should read carefully and understand how you can work with the changes rather than reverting them.
     - If the changes are in unrelated files, just ignore them and don't revert them.
 - While you are working, you might notice unexpected changes that you didn't make. If this happens, STOP IMMEDIATELY and ask the user how they would like to proceed.
-- When you are being asked to initiate a new git environment, always add a `.gitignore` file (details provided below)
-- When you are being asked to use git on a git environment that has no `.gitignore`, always add a `.gitignore` file (details provided below)
-- The .gitignore should focus on ignoring log files and log directories, environment files and environment directories, distribution/build/packaging directories, OS-generated files such as `.DS_Store`, backup files ending in `.bak`, and any other that make sense to the current project
-- When using `git commit`, use multiple `-m` switch to ensure multi-line git commit messages are properly processed
+- When asked to init a new git repo, or when asked to use git on an existing repo that has no `.gitignore`, always proactively add a `.gitignore` file suitable for the project.
+- When using `git commit`, use multiple `-m` switch to ensure multi-line git commit messages are properly processed.
 - If you believe git config needs modification, ask the human user to update it manually. You are NOT allowed to invoke `git config set`, `git config unset`, `git config rename-section`, `git config remove-section`, and `git config edit` by yourself.
 - You have access to the `gh` command for interacting with GitHub.
 - Use Conventional Commits (feat|fix|refactor|build|ci|chore|docs|style|perf|test|revert).
@@ -116,5 +114,5 @@ Below is our preferred folder structure. Try to adopt this structure. However, n
 - Default to ASCII when editing or creating files. Only introduce non-ASCII or other Unicode characters when there is a clear justification and the file already uses them. Encode files as UTF-8 by default.
 
 # CLIs
-- You are equipped with the following CLIs to speed up and enhance your workflow: `bat`, `difft`, `fd`, `firebase-tools`, `fzf`, `gh`, `git`, `lazysql`, `mmdc`, `rg`, `tmux`, `zellij`.
+- You are equipped with the following CLIs to speed up and enhance your workflow: `bat`, `brew`, `bun`, `difft`, `duckdb`, `fd`, `firebase-tools`, `fzf`, `gh`, `git`, `jq`, `lazysql`, `mmdc`, `node`, `npm`, `npx`, `rg`, `ruff`, `sqlite3`, `tmux`, `ty`, `uv`, `zellij`.
 
