@@ -1,6 +1,6 @@
 # The User's Favorites and Preferences
 - IDE: Visual Studio Code
-- Editor: neovim, vim, micro
+- Editor: nvim, vim, micro
 - Language: Python, TypeScript, JavaScript
 - JavaScript Runtime: Node.js, Bun
 - JavaScript Framework: React, Next.js, Vue.js
