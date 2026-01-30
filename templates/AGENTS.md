@@ -66,6 +66,7 @@ The following philosophies are applicable when the task type and project type is
   - Windows: `where python` and `python -V`
   - It is common for `python` and `python3` to be a shell alias. Run `type python` and `type python3` to check whether shell alias is overriding venv Settings
   - Use absolute path of the Python in the virtual environment if needed 
+- Prefer to use `uv tool install` to setup our Python project deliverables when suitable and applicable. First install from local source to test, and then install from GitHub over HTTPS when the project release is pushed on GitHub. 
 
 # Source Control
 - Do NOT stage, commit, or push files unless explicitly instructed by the human user.
