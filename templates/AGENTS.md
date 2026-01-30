@@ -1,10 +1,15 @@
 # The User's Favorites and Preferences
 - IDE: Visual Studio Code
-- Editor: Vim, Neovim
-- Language: Python, JavaScript, TypeScript
+- Editor: neovim, vim, micro
+- Language: Python, TypeScript, JavaScript
 - JavaScript Runtime: Node.js, Bun
 - JavaScript Framework: React, Next.js, Vue.js
+- JavaScript Package Manager: npm
+- JavaScript Linter: ESLint
+- TypeScript Linter: ESLint + typescript-eslint
 - CSS Framework: Bootstrap, Tailwind
+- Python linter: ruff
+- Python type checker: ty
 - Component Library: Ant Design
 - CLI library: Typer
 - TUI library: Bubble Tea
@@ -13,7 +18,7 @@
 - Deployment: Vercel
 - Cross-Platform UI Framework: Flutter
 - Source Control: Git
-- Database: SQLite, PostgreSQL
+- Database: SQLite, PostgreSQL, Supabase
 - Diagram and chart: Mermaid
 - Web crawler: Crawlee
 - Browser automation: Playwright, agent-browser
@@ -26,11 +31,10 @@ In all of your conversatons with the user:
 - Adopt a formal, professional, serious tone. 
 - Be direct and concise.
 - Avoid emojis and casual language.
-<!-- - Omit conversational filler.-->
 
 # General Guiding Principles
 The following principles are applicable for all task type and project type:
-- Whatever you are being asked to do, first consider and adopt the Latest Industry Standards and Best Practices for the concerned domain, before proceeding to the task.
+- Whatever you are being asked to do, first consider and adopt the Latest Industry Standards and Best Practices for the concerned domain, before actually carrying out the task.
 - Research, think, and plan before you act.
 - When in doubt, pause and ask the user for details, clarifications, confirmations, and approvals. No question is a stupid question.
 - **KISS** - Adopt the "Keep it simple, stupid!" principle.
@@ -38,19 +42,19 @@ The following principles are applicable for all task type and project type:
 
 # Software Development Philosophies
 The following philosophies are applicable when the task type and project type is software development related:
-- Follow the **Spec Driven Development** approach. We preferred this approach over Test Driven Development.
+- Follow the **Spec Driven Development** approach and the **Test Driven Development** approach when applicable.
 - Follow the **Iterative and Incremental** development model.
 - Adopt **Progressive Elaboration** during the software development lifecycle.
-- **Evergreen Documents** - Based on the above 2 philosophhies, ALL documentation in the project folder is a living document (also known as an evergreen document or dynamic document). Automatically take the initiative to propose updates of any relevant documentations to the user during the development lifecycle and tasks.
+- **Evergreen Documents** - ALL project documentation is a living document (also known as an evergreen document or dynamic document). Proactively propose/carry out updates of any and all relevant documentations during the development lifecycle and tasks.
 - Adopt the **Unix philosophy** when design and implementing function/class/module/file/package: **"Do One Thing and Do It Well"**.
 - Adopt **Defensive programming** during design and implementation.
 - Whenever applicable, prefer incremental, small changes over big changes.
 - Avoid clever or complex tricks (syntax or otherwise) that reduce human readability of the source code. Be boring, detailed, obvious, and clear.
 - Always write well documented / commented code with inline comment and docstrings.
-- Prefer the **Functional programming** paradigm: implement pure function whenever possible for identical returns with identical arguments, and avoid side effects
-- Try to plan / design / buld a Minimum Viable Product (MVP) for internal use to act as a Proof-of-Concept quickly.
-- When you are drafting Tasks List, add steps at appropriate phases to execute Code Linting.
-- When you are drafting Tasks List, add steps at appropriate phases to Review and Upate Project Documentations.
+- Prefer the **Functional programming** paradigm: implement pure function whenever possible for identical returns with identical arguments, and avoid side effects.
+- Try to plan / design / buld a Minimum Viable Product (MVP) for internal use as a Proof-of-Concept quickly.
+- Run linters and type checker after each round of implementation.
+- Proactively add a task to Review and Update Project Documentations during each Major Phase when making a Plan.
 - Fix root cause and not just applying band-aid.
 - **YAGNI** - Adopt the "You aren't gonna need it" principle.
 - **DRY** - Adopt the "Don't repeat yourself" principle.
@@ -59,8 +63,8 @@ The following philosophies are applicable when the task type and project type is
 
 # Python
 - Never install Python packages globally. Always use a project-local virtual environment
-- Always start a Python project by using either `venv` or `uv` for Python virtual environment isolation
-- Always run package installs via the environment’s interpreter (`python -m pip ...`) or via `uv` to avoid accidentally using the wrong `pip`.
+- Always start a Python project by using either `uv venv` (preferred) or `python -m venv .venv` (fallback) for Python virtual environment isolation
+- Always run package installs via the environment’s interpreter (`uv pip install ...`) or (`python -m pip ...`) to avoid accidentally using the wrong `pip`.
 - Before installing or running anything, verify the interpreter is the project venv:
   - macOS/Linux: `which python` and `python -V`
   - Windows: `where python` and `python -V`
