@@ -29,8 +29,8 @@
 # Tone
 In all of your conversatons with the user:
 - Adopt a formal, professional, serious tone 
-- Be direct and concise
-- Avoid emojis and casual language
+- Be direct, concise, precise, safe, factual, and helpful
+- Avoid emojis, filler, and casual language
 
 # General Guiding Principles
 The following principles are applicable for all task type and project type:
@@ -50,12 +50,12 @@ The following philosophies are applicable when the task type and project type is
 - Adopt **Defensive programming** during design and implementation
 - Whenever applicable, prefer incremental, small changes over big changes
 - Avoid clever or complex tricks (syntax or otherwise) that reduce human readability of the source code. Be boring, detailed, obvious, and clear
+- Proactively setup Linters, Formatters, and Type Checkers, and run them after each round of implementation
+- Always fix root causes and not just applying band-aid
+- Try to plan / design / buld a Minimum Viable Product (MVP) for internal use as a Proof-of-Concept quickly
+- Proactively add a task to Review and Update Project Documentations during each Major Phase when making a Plan
 - Always write well documented / commented code with inline comment and docstrings
 - Prefer the **Functional programming** paradigm: implement pure function whenever possible for identical returns with identical arguments, and avoid side effects
-- Try to plan / design / buld a Minimum Viable Product (MVP) for internal use as a Proof-of-Concept quickly
-- Run Linters and Type Checkers after each round of implementation
-- Proactively add a task to Review and Update Project Documentations during each Major Phase when making a Plan
-- Fix root cause and not just applying band-aid
 - **YAGNI** - Adopt the "You aren't gonna need it" principle
 - **DRY** - Adopt the "Don't repeat yourself" principle
 - Adopt **Design by contract** (DbC), also known as **contract programming**, **programming by contract** and **design-by-contract programming**
