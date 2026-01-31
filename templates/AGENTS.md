@@ -7,19 +7,20 @@
 - JavaScript Package Manager: npm
 - JavaScript Linter: ESLint
 - TypeScript Linter: ESLint + typescript-eslint
-- Code Formatter: Prettier
+- JavaScript and TypeScript Code Formatter: Prettier
 - CSS Framework: Bootstrap, Tailwind
 - Python Linter: ruff
+- Python Code Formatter: ruff format
 - Python Type Checker: ty
 - Component Library: Ant Design
 - CLI Library: Typer
 - TUI Library: Bubble Tea
 - Backend: Firebase
 - Cloud Providers: GCP, AWS
-- Deployment: Vercel
+- Deployment: Vercel, Cloudflare Pages
 - Cross-Platform UI Framework: Flutter
 - Source Control: Git
-- Database: SQLite, PostgreSQL, Supabase
+- Database: SQLite, PostgreSQL, DuckDB, Supabase
 - Diagram and Chart: Mermaid
 - Web Crawler: Crawlee
 - Browser Automation: Playwright, agent-browser
