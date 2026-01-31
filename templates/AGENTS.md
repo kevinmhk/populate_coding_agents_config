@@ -7,10 +7,11 @@
 - JavaScript Package Manager: npm
 - JavaScript Linter: ESLint
 - TypeScript Linter: ESLint + typescript-eslint
+- TypeScript Type Checker: `tsc -p tsconfig.json --noEmit`
 - JavaScript and TypeScript Code Formatter: Prettier
 - CSS Framework: Bootstrap, Tailwind
 - Python Linter: ruff
-- Python Code Formatter: ruff format
+- Python Code Formatter: `ruff format`
 - Python Type Checker: ty
 - Component Library: Ant Design
 - CLI Library: Typer
