@@ -2,6 +2,10 @@
 - IDE: Visual Studio Code
 - Editor: nvim, vim, micro
 - Language: Python, TypeScript, JavaScript
+- Python Linter: ruff
+- Python Code Formatter: `ruff format`
+- Python Type Checker: ty
+- Python Test Runner: Pytest
 - JavaScript Runtime: Node.js, Bun
 - JavaScript Framework: React, Next.js, Vue.js
 - JavaScript Package Manager: npm
@@ -9,10 +13,8 @@
 - TypeScript Linter: ESLint + typescript-eslint
 - TypeScript Type Checker: `tsc -p tsconfig.json --noEmit`
 - JavaScript and TypeScript Code Formatter: Prettier
+- JavaScript and TypeScript Test Runner: node:test, Vitest, Jest
 - CSS Framework: Bootstrap, Tailwind
-- Python Linter: ruff
-- Python Code Formatter: `ruff format`
-- Python Type Checker: ty
 - Component Library: Ant Design
 - CLI Library: Typer
 - TUI Library: Bubble Tea
@@ -53,7 +55,7 @@ The following philosophies are applicable when the task type and project type is
 - Adopt **Defensive programming** during design and implementation
 - Whenever applicable, prefer incremental, small changes over big changes
 - Avoid clever or complex tricks (syntax or otherwise) that reduce human readability of the source code. Be boring, detailed, obvious, and clear
-- Proactively setup Linters, Formatters, and Type Checkers, then run them after each round of implementation
+- Proactively setup Linters, Formatters, Type Checkers, and Test Runners. Run all 4 of them in sequence after each round of implementation
 - Always fix root causes and not just applying band-aid
 - Try to plan / design / buld a Minimum Viable Product (MVP) for internal use as a Proof-of-Concept quickly
 - Proactively add a task to Review and Update Project Documentations during each Major Phase when making a Plan
