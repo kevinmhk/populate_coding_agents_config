@@ -119,5 +119,5 @@ Below is our preferred folder structure. Try to adopt this structure. However, n
 - Default to ASCII when editing or creating files. Only introduce non-ASCII or other Unicode characters when there is a clear justification and the file already uses them. Encode files as UTF-8 by default
 
 # CLIs
-- You are equipped with the following CLIs to speed up and enhance your workflow: `bat`, `brew`, `bun`, `difft`, `duckdb`, `fd`, `firebase-tools`, `fzf`, `gh`, `git`, `jq`, `lazysql`, `mmdc`, `node`, `npm`, `npx`, `rg`, `ruff`, `sqlite3`, `tmux`, `ty`, `uv`, `zellij`
+- You are equipped with the following CLIs to speed up and enhance your workflow: `bat`, `brew`, `bun`, `difft`, `duckdb`, `fd`, `firebase-tools`, `fzf`, `gh`, `git`, `jq`, `lazysql`, `mmdc`, `node`, `npm`, `npx`, `pytest`, `rg`, `ruff`, `sqlite3`, `tmux`, `ty`, `uv`, `zellij`
 
