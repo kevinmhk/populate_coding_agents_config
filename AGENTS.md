@@ -7,7 +7,7 @@ This repository centralizes and deploys coding-agent configuration files and ski
 - `config/agents.conf`: Mapping of agent names to target `AGENTS.md` and skills directories.
 - `templates/AGENTS.md`: Source-of-truth agent configuration content.
 - `templates/skills/`: Master skill directories copied to agent skill locations.
-- `scripts/deploy.sh`: Main deployment script (copy + optional `chezmoi add`).
+- `scripts/deploy.sh`: Main deployment script (copy + optional `chezmoi add` / `chezmoi destroy`).
 - `README.md`: User-facing overview and usage notes.
 
 ## Build, Test, and Development Commands
@@ -26,7 +26,7 @@ This repository centralizes and deploys coding-agent configuration files and ski
 ## Testing Guidelines
 
 - No automated tests are currently defined.
-- Validate changes manually by running `./scripts/deploy.sh` and confirming file updates.
+- Validate changes manually by running `./scripts/deploy.sh` and confirming file updates/deletions.
 
 ## Commit & Pull Request Guidelines
 
@@ -41,3 +41,4 @@ This repository centralizes and deploys coding-agent configuration files and ski
 
 - `scripts/deploy.sh` uses `eval` to expand `~` in paths; only use trusted values in `config/agents.conf`.
 - Keep target paths explicit and avoid shell metacharacters.
+- If `DELETE_MISSING_SKILLS=true`, stale target skill folders are removed (via `chezmoi destroy --force` when enabled).

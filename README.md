@@ -6,7 +6,8 @@ This utility centralizes and automates the management of configuration files (`A
 
 - **Centralized Management**: Maintain one `AGENTS.md` and one set of skills for all your agents.
 - **Smart Diffing**: The script compares source and target files before copying. It only updates files that have actually changed, preserving timestamps and reducing unnecessary operations.
-- **Granular Skill Updates**: Skills are managed at the subdirectory level. If you have multiple skills in your target directory, the script will only update the ones present in your templates, leaving others untouched.
+- **Granular Skill Updates**: Skills are managed at the subdirectory level. If you have multiple skills in your target directory, the script will only update the ones present in your templates, leaving others untouched (unless deletion is enabled).
+- **Optional Skill Deletions**: When enabled, target skill folders not present in `templates/skills` are removed (and deleted via `chezmoi` if configured).
 - **Chezmoi Integration**: Automatically runs `chezmoi add` on updated files to keep your dotfiles in sync.
 
 ## Project Structure
@@ -28,8 +29,10 @@ You can control whether `chezmoi` is invoked using the `USE_CHEZMOI` variable at
 
 ```properties
 USE_CHEZMOI=true
+DELETE_MISSING_SKILLS=false
 ```
 Set to `false` to disable `chezmoi` integration.
+Set `DELETE_MISSING_SKILLS=true` to remove target skill folders that no longer exist in `templates/skills`.
 
 ### Agent Mapping
 Each subsequent line represents a target agent configuration in the following format:

@@ -21,15 +21,30 @@ USE_CHEZMOI=$(grep "^USE_CHEZMOI=" "$CONFIG_FILE" | cut -d'=' -f2 | tr -d '[:spa
 if [[ "$USE_CHEZMOI" != "true" ]]; then
     USE_CHEZMOI="false"
 fi
+# Extract DELETE_MISSING_SKILLS value, default to false if not found
+DELETE_MISSING_SKILLS=$(grep "^DELETE_MISSING_SKILLS=" "$CONFIG_FILE" | cut -d'=' -f2 | tr -d '[:space:]')
+if [[ "$DELETE_MISSING_SKILLS" != "true" ]]; then
+    DELETE_MISSING_SKILLS="false"
+fi
+
+if [ -t 1 ] && command -v tput &> /dev/null; then
+    COLOR_WARN="$(tput setaf 1)"
+    COLOR_RESET="$(tput sgr0)"
+else
+    COLOR_WARN=""
+    COLOR_RESET=""
+fi
 
 echo "Starting deployment of agent configurations..."
 echo "Chezmoi Integration: $USE_CHEZMOI"
+echo "Delete Missing Skills: $DELETE_MISSING_SKILLS"
 
 # Read config file line by line
 while IFS='|' read -r agent_name target_agents_md target_skills_dir || [ -n "$agent_name" ]; do
     # Skip comments, empty lines, and setting lines
     [[ "$agent_name" =~ ^#.*$ ]] && continue
     [[ "$agent_name" =~ ^USE_CHEZMOI=.*$ ]] && continue
+    [[ "$agent_name" =~ ^DELETE_MISSING_SKILLS=.*$ ]] && continue
     [[ -z "$agent_name" ]] && continue
 
     echo "---------------------------------------------------"
@@ -135,6 +150,49 @@ while IFS='|' read -r agent_name target_agents_md target_skills_dir || [ -n "$ag
                             fi
                         else
                             echo "     [ERROR] Failed to copy skill '$skill_name'"
+                        fi
+                    fi
+                fi
+            done
+
+            # Remove or report target skills that no longer exist in templates.
+            if [ "$DELETE_MISSING_SKILLS" = "true" ]; then
+                echo "  -> Removing stale skills in $target_skills_dir"
+            else
+                echo "  -> Dry run: detecting stale skills in $target_skills_dir"
+            fi
+
+            for target_skill_path in "$target_skills_dir"/*; do
+                if [ -d "$target_skill_path" ]; then
+                    skill_name=$(basename "$target_skill_path")
+                    source_skill_path="$SOURCE_SKILLS_DIR/$skill_name"
+                    if [ ! -d "$source_skill_path" ]; then
+                        if [ "$DELETE_MISSING_SKILLS" = "true" ]; then
+                            removed_by_chezmoi="false"
+                            if [ "$USE_CHEZMOI" = "true" ]; then
+                                if command -v chezmoi &> /dev/null; then
+                                    chezmoi destroy --force "$target_skill_path"
+                                    if [ $? -eq 0 ]; then
+                                        removed_by_chezmoi="true"
+                                        echo "     [OK]   Removed stale skill '$skill_name' via chezmoi"
+                                    else
+                                        echo "     [WARN] Failed to remove '$skill_name' via chezmoi; falling back to rm -rf"
+                                    fi
+                                else
+                                    echo "     [WARN] chezmoi not found, falling back to rm -rf"
+                                fi
+                            fi
+
+                            if [ "$removed_by_chezmoi" = "false" ]; then
+                                rm -rf "$target_skill_path"
+                                if [ $? -eq 0 ]; then
+                                    echo "     [OK]   Removed stale skill '$skill_name'"
+                                else
+                                    echo "     [ERROR] Failed to remove stale skill '$skill_name'"
+                                fi
+                            fi
+                        else
+                            echo "     ${COLOR_WARN}[WARN] Stale skill detected '$skill_name' (not in templates)${COLOR_RESET}"
                         fi
                     fi
                 fi
