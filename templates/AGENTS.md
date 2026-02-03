@@ -31,11 +31,27 @@
 # Global Settings
 - Workspace: The global workspace that contains all my projects is located at `~/workspaces`
 
+# Global Defaults
+- Repository publishing: before any public release or repo creation, ensure `AGENTS.md`, `README.md`, `LICENSE`, and `.gitignore` exist; create or propose them if missing
+- License: default to `MIT` for public repositories unless explicitly overridden
+- README: include `Overview`, `Install`, `Usage`, and `License` sections by default
+- GitHub repo visibility: default to private unless the user explicitly requests public
+- Releases/tags: use `vX.Y.Z` semantic tags with short release titles
+- Shell scripts: Bash/Zsh compatible, idempotent, non-interactive by default; for reminder scripts, output a literal reminder instead of executing commands
+- CSV outputs: prefer timestamped output filenames when requested and log skipped/invalid rows with reasons
+- Web scraping: prefer Playwright, write outputs to `data/` or `output/`, and log skips/errors
+- Install scripts: prefer `~/.local/bin` placement and explicit shell-config edits; do not modify configs without approval
+
 # Tone
-In all of your conversatons with the user:
+In all of your conversations with the user:
 - Adopt a formal, professional, serious tone 
 - Be direct, concise, precise, safe, factual, and helpful
 - Avoid emojis, filler, and casual language
+
+# Decisions and Assumptions
+- Make reasonable assumptions when risk is low, but state them explicitly
+- For high-risk ambiguity, ask before proceeding
+- Record key decisions in docs when they affect behavior or workflow
 
 # General Guiding Principles
 The following principles are applicable for all task type and project type:
@@ -43,7 +59,7 @@ The following principles are applicable for all task type and project type:
 - Research, think, and plan before you act
 - When in doubt, pause and ask the user for details, clarifications, confirmations, and approvals. No question is a stupid question
 - **KISS** - Adopt the "Keep it simple, stupid!" principle
-- Adopt the **"If it ain't broke, don't fix it"**. principle
+- Adopt the **"If it ain't broke, don't fix it"** principle unless changes are required for correctness, tests, security, or requirements
 
 # Software Development Philosophies
 The following philosophies are applicable when the task type and project type is software development related:
@@ -51,13 +67,14 @@ The following philosophies are applicable when the task type and project type is
 - Follow the **Iterative and Incremental** development model
 - Adopt **Progressive Elaboration** during the software development lifecycle
 - **Evergreen Documents** - ALL project documentation is a living document (also known as an evergreen document or dynamic document). Proactively propose/carry out updates of any and all relevant documentations during the development lifecycle and tasks
+- Update docs when requirements, behavior, interfaces, or operational steps change; keep README/architecture/deploy/usage docs aligned
 - Adopt the **Unix philosophy** when design and implementing function/class/module/file/package: **"Do One Thing and Do It Well"**
 - Adopt **Defensive programming** during design and implementation
 - Whenever applicable, prefer incremental, small changes over big changes
 - Avoid clever or complex tricks (syntax or otherwise) that reduce human readability of the source code. Be boring, detailed, obvious, and clear
-- Proactively setup Linters, Formatters, Type Checkers, and Test Runners. Run all 4 of them in sequence after each round of implementation
+- Proactively setup Linters, Formatters, Type Checkers, and Test Runners. Follow the Quality Gates order
 - Always fix root causes and not just applying band-aid
-- Always write well documented / commented code with inline comment and docstrings
+- Write docstrings for public APIs and comments only for non-obvious logic
 - Prefer the **Functional programming** paradigm: implement pure function whenever possible for identical returns with identical arguments, and avoid side effects
 - **YAGNI** - Adopt the "You aren't gonna need it" principle
 - **DRY** - Adopt the "Don't repeat yourself" principle
@@ -67,8 +84,21 @@ The following philosophies are applicable when the task type and project type is
 # Planning and ExecPlans
 - Use Checkboxes on Plans written in Markdown for progress tracking
 - When writing complex features or significant refactors, use an ExecPlan (as described in ~/.agent/PLANS.md) from design to implementation.
-- Try to plan / design / buld a Minimum Viable Product (MVP) for internal use as a Proof-of-Concept quickly
+- Try to plan / design / build a Minimum Viable Product (MVP) for internal use as a Proof-of-Concept quickly
 - Proactively add a task to Review and Update Project Documentations during each Major Phase when making a Plan
+
+# Execution Loop
+- For each assigned task: define acceptance criteria, then write or update tests first where applicable
+- Implement the smallest change that satisfies the tests
+- Run Quality Gates in order: format → lint → typecheck → test
+- Fix failures and repeat until all tests pass
+- Update docs and plan checkboxes after each task
+- Summarize results and remaining work at each checkpoint
+
+# Quality Gates
+- Order: format → lint → typecheck → test
+- If a tool is missing, ask before installing
+- Do not skip gates unless the user explicitly asks
 
 # Python
 - When starting a Python project, ALWAYS PROACTIVELY use `uv venv` (preferred) or `python -m venv .venv` (fallback) for Python virtual environment isolation
@@ -78,15 +108,16 @@ The following philosophies are applicable when the task type and project type is
   - Windows: `where python` and `python -V`
   - It is common for `python` and `python3` to be a shell alias. Run `type python` and `type python3` to check whether shell alias is overriding venv settings
   - Use absolute path of the Python in the virtual environment if needed 
-- Proactively install and setup Linters (`ruff`), Formatters (`ruff format`), Type Checkers (`tsc -p tsconfig.json --noEmit`), and Test Runners (`pytest`). Proactively write tests during development. Proactively run all 4 types of checking in sequence after each round of implementation
+- Proactively install and setup Linters (`ruff`), Formatters (`ruff format`), Type Checkers (`ty`), and Test Runners (`pytest`). Proactively write tests during development. Follow the Quality Gates order
 - Use `uv tool install` to setup our Python project deliverables when suitable and applicable. Install from local source (`uv tool install . --reinstall --no-cache`) during local development, or install from GitHub over HTTPS during new setup
 
 # JavaScript and TypeScript
 - You are equipped with the following CLIs to work on JavaScript and TypeScript projects: `node`, `npm`, `npx`, `bun`
-- Proactively install and setup Linters (ESLint and typescript-eslint), Formatters (Prettier), Type Checkers (`ty`), and Test Runners (node:test, Vitest, Jest). Proactively write tests during development. Proactively run all 4 types of checking in sequence after each round of implementation
+- Proactively install and setup Linters (ESLint and typescript-eslint), Formatters (Prettier), Type Checkers (`tsc -p tsconfig.json --noEmit`), and Test Runners (node:test, Vitest, Jest). Proactively write tests during development. Follow the Quality Gates order
 
 # Source Control
 - Do NOT stage, commit, or push files unless explicitly instructed by the human user
+- Always run `git status` and summarize staged changes before any commit or push
 - You may be in a dirty git worktree
     - NEVER revert existing changes you did not make unless explicitly requested, since these changes were made by the user
     - If asked to make a commit or code edits and there are unrelated changes to your work or changes that you didn't make in those files, don't revert those changes
@@ -106,6 +137,7 @@ The following philosophies are applicable when the task type and project type is
 
 # Package Manager
 - You are equipped with `brew`, `npm`, and `uv` to install and upgrade system / global packages
+- Ask for approval before installing or upgrading system/global packages or modifying shell configs
 
 # CSV
 - You are equipped with the following CLIs to work with CSV files: csvkit's `in2csv`, `sql2csv`, `csvclean`, `csvcut`, `csvgrep`, `csvjoin`, `csvsort`, `csvstack`, `csvformat`, `csvjson`, `csvlook`, `csvpy`, `csvsql`, `csvstat`; `qsv`; `xan`
