@@ -57,8 +57,6 @@ The following philosophies are applicable when the task type and project type is
 - Avoid clever or complex tricks (syntax or otherwise) that reduce human readability of the source code. Be boring, detailed, obvious, and clear
 - Proactively setup Linters, Formatters, Type Checkers, and Test Runners. Run all 4 of them in sequence after each round of implementation
 - Always fix root causes and not just applying band-aid
-- Try to plan / design / buld a Minimum Viable Product (MVP) for internal use as a Proof-of-Concept quickly
-- Proactively add a task to Review and Update Project Documentations during each Major Phase when making a Plan
 - Always write well documented / commented code with inline comment and docstrings
 - Prefer the **Functional programming** paradigm: implement pure function whenever possible for identical returns with identical arguments, and avoid side effects
 - **YAGNI** - Adopt the "You aren't gonna need it" principle
@@ -66,16 +64,26 @@ The following philosophies are applicable when the task type and project type is
 - Adopt **Design by contract** (DbC), also known as **contract programming**, **programming by contract** and **design-by-contract programming**
 - Adopt **SOLID** when working on object-oriented programming: - Single responsibility principle, Open-closed principle, Liskov substitution principle, Interface segregation principle, and Dependency inversion principle
 
+# Planning and ExecPlans
+- Use Checkboxes on Plans written in Markdown for progress tracking
+- When writing complex features or significant refactors, use an ExecPlan (as described in ~/.agent/PLANS.md) from design to implementation.
+- Try to plan / design / buld a Minimum Viable Product (MVP) for internal use as a Proof-of-Concept quickly
+- Proactively add a task to Review and Update Project Documentations during each Major Phase when making a Plan
+
 # Python
-- Never install Python packages globally. Always use a project-local virtual environment
-- Always start a Python project by using either `uv venv` (preferred) or `python -m venv .venv` (fallback) for Python virtual environment isolation
-- Always run package installs via the environment’s interpreter (`uv pip install ...`) or (`python -m pip ...`) to avoid accidentally using the wrong `pip`
+- When starting a Python project, ALWAYS PROACTIVELY use `uv venv` (preferred) or `python -m venv .venv` (fallback) for Python virtual environment isolation
+- Always run package installs via the environment’s interpreter `uv pip install ...` (preferred) or `python -m pip ...` (fallback) to avoid accidentally using the wrong `pip`. Never install Python packages globally, always install in a project-local virtual environment
 - Before installing or running anything, verify the interpreter is the project venv:
   - macOS/Linux: `which python` and `python -V`
   - Windows: `where python` and `python -V`
   - It is common for `python` and `python3` to be a shell alias. Run `type python` and `type python3` to check whether shell alias is overriding venv settings
   - Use absolute path of the Python in the virtual environment if needed 
-- Prefer to use `uv tool install` to setup our Python project deliverables when suitable and applicable. First install from local source (`uv tool install . --reinstall --no-cache`) to test, and then install from GitHub over HTTPS when the project release is pushed on GitHub
+- Proactively install and setup Linters (`ruff`), Formatters (`ruff format`), Type Checkers (`tsc -p tsconfig.json --noEmit`), and Test Runners (`pytest`). Proactively write tests during development. Proactively run all 4 types of checking in sequence after each round of implementation
+- Use `uv tool install` to setup our Python project deliverables when suitable and applicable. Install from local source (`uv tool install . --reinstall --no-cache`) during local development, or install from GitHub over HTTPS during new setup
+
+# JavaScript and TypeScript
+- You are equipped with the following CLIs to work on JavaScript and TypeScript projects: `node`, `npm`, `npx`, `bun`
+- Proactively install and setup Linters (ESLint and typescript-eslint), Formatters (Prettier), Type Checkers (`ty`), and Test Runners (node:test, Vitest, Jest). Proactively write tests during development. Proactively run all 4 types of checking in sequence after each round of implementation
 
 # Source Control
 - Do NOT stage, commit, or push files unless explicitly instructed by the human user
@@ -86,38 +94,39 @@ The following philosophies are applicable when the task type and project type is
     - If the changes are in unrelated files, just ignore them and don't revert them
 - While you are working, you might notice unexpected changes that you didn't make. If this happens, STOP IMMEDIATELY and ask the user how they would like to proceed
 - When asked to init a new git repo, or when asked to use git on an existing repo that has no `.gitignore`, always proactively add a `.gitignore` file suitable for the project
+- You are equipped with the following CLIs to work with Git and GitHub: `git`, `gh`, `difft`, `lazygit`
 - When using `git commit`, use multiple `-m` switch to ensure multi-line git commit messages are properly processed
 - If you believe git config needs modification, ask the human user to update it manually. You are NOT allowed to invoke `git config set`, `git config unset`, `git config rename-section`, `git config remove-section`, and `git config edit` by yourself
 - You have access to the `gh` command for interacting with GitHub
 - Use Conventional Commits (feat|fix|refactor|build|ci|chore|docs|style|perf|test|revert)
 - By default you are the one to write the commit message, unless the user explicitly asks to write it himself
 
+# File and Text Search
+- You are equipped with the following CLIs to perform fast file and text search: `fd`, `fzf`, `rg`
+
+# Package Manager
+- You are equipped with `brew`, `npm`, and `uv` to install and upgrade system / global packages
+
+# CSV
+- You are equipped with the following CLIs to work with CSV files: csvkit's `in2csv`, `sql2csv`, `csvclean`, `csvcut`, `csvgrep`, `csvjoin`, `csvsort`, `csvstack`, `csvformat`, `csvjson`, `csvlook`, `csvpy`, `csvsql`, `csvstat`; `qsv`; `xan`
+
+# JSON
+- You are equipped with the `jq` CLI to work with JSON
+
+# Database
+- You are equipped with the following CLIs to work with database: `duckdb`, `lazysql`,  `sqlite3`
+
+# Mermaid Diagram
+- You are equipped with the `mmdc` CLI to work on Mermaid Diagram
+
+# Firebase
+- You are equipped with the following CLIs to work with Firebase: `firebase-tools`
+
 # Project Folder Structure
-Below is our preferred folder structure. Try to adopt this structure. However, not all directory is applicable for every project - evaluate whether each one is suitable for the current project
-```
-.
-├── .cache/ 
-├── .venv/
-├── assets/ 
-├── build/
-├── config/
-├── data/ 
-├── dist/
-├── docs/
-├── examples/
-├── logs/
-├── scripts/
-├── src/
-├── tests/
-└── tmp/
-```
+- Setup conventional folder structures as you create new files (eg .cache, .venv, assets, build, config, data, dist, docs, examples, local, logs, samples, scripts, src, tests, tmp)
 
 # Reading Files
 - Always read the entire file in full before making any file edit
 
 # Writing Files
 - Default to ASCII when editing or creating files. Only introduce non-ASCII or other Unicode characters when there is a clear justification and the file already uses them. Encode files as UTF-8 by default
-
-# CLIs
-- You are equipped with the following CLIs to speed up and enhance your workflow: `bat`, `brew`, `bun`, `difft`, `duckdb`, `fd`, `firebase-tools`, `fzf`, `gh`, `git`, `jq`, `lazysql`, `mmdc`, `node`, `npm`, `npx`, `pytest`, `rg`, `ruff`, `sqlite3`, `tmux`, `ty`, `uv`, `zellij`
-
