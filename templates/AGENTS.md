@@ -83,7 +83,7 @@ The following philosophies are applicable when the task type and project type is
 
 # Planning and ExecPlans
 - Use Checkboxes on Plans written in Markdown for progress tracking
-- When writing complex features or significant refactors, use an ExecPlan (as described in ~/.agent/PLANS.md) from design to implementation.
+- When writing complex features or significant refactors, use an ExecPlan (as described in ~/.agents/PLANS.md) from design to implementation.
 - Try to plan / design / build a Minimum Viable Product (MVP) for internal use as a Proof-of-Concept quickly
 - Proactively add a task to Review and Update Project Documentations during each Major Phase when making a Plan
 
