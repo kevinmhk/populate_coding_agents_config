@@ -1,0 +1,4 @@
+interface:
+  display_name: "Playwright Link Extractor"
+  short_description: "Extract links with Playwright and log skips"
+  default_prompt: "Create a Playwright script that collects links from target pages and writes structured output with skip or error logs."

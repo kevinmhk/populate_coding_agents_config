@@ -1,0 +1,4 @@
+interface:
+  display_name: "CSV Transformer"
+  short_description: "Transform CSVs with validation and logs"
+  default_prompt: "Create a CSV transformation script with schema checks, timestamped outputs, and skip logs."

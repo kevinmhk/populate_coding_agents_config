@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Release Ops"
+  short_description: "Safe git release, tag, and push workflow"
+  default_prompt: "Run a safe stage/commit/push workflow and create a version tag or release when requested, with status checks and summaries."

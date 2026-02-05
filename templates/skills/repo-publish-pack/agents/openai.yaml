@@ -1,0 +1,4 @@
+interface:
+  display_name: "Repo Publish Pack"
+  short_description: "Prepare repos for public release"
+  default_prompt: "Prepare this repository for publishing by creating or updating AGENTS.md, README.md, LICENSE, and .gitignore, and outline optional GitHub repo and release steps."

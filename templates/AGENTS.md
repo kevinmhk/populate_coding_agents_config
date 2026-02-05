@@ -1,3 +1,7 @@
+# Purpose
+- This file defines global policies and defaults across all repositories
+- Operational workflows should be handled via skills when available
+
 # The User's Favorites and Preferences
 - IDE: Visual Studio Code
 - Editor: nvim, vim, micro
@@ -31,16 +35,25 @@
 # Global Settings
 - Workspace: The global workspace that contains all my projects is located at `~/workspaces`
 
+# Skill Index
+- Use `repo-publish-pack` for repo publishing prep (AGENTS/README/LICENSE/.gitignore) and optional release setup
+- Use `gh-private-repo-bootstrap` for private GitHub repo creation and `origin` setup
+- Use `git-release-ops` for stage/commit/push/tag/release workflows
+- Use `shell-script-builder` for Bash/Zsh scripts and installers
+- Use `csv-transformer` for CSV transformations and validation
+- Use `playwright-link-extractor` for link scraping with Playwright
+- Use `flutter-firebase-webapp-bootstrap` for Flutter + Firebase scaffolding
+- Use `agent-browser` for browser automation, screenshots, and web extraction
+- Use `playwright-cli` for Playwright-based browser automation tasks
+- Use `frontend-design` for high-quality frontend UI design and implementation
+- Use `pdf` for PDF extraction, edits, and form handling
+- Use `create-plan` only when the user explicitly asks for a plan
+
 # Global Defaults
-- Repository publishing: before any public release or repo creation, ensure `AGENTS.md`, `README.md`, `LICENSE`, and `.gitignore` exist; create or propose them if missing
 - License: default to `MIT` for public repositories unless explicitly overridden
 - README: include `Overview`, `Install`, `Usage`, and `License` sections by default
 - GitHub repo visibility: default to private unless the user explicitly requests public
 - Releases/tags: use `vX.Y.Z` semantic tags with short release titles
-- Shell scripts: Bash/Zsh compatible, idempotent, non-interactive by default; for reminder scripts, output a literal reminder instead of executing commands
-- CSV outputs: prefer timestamped output filenames when requested and log skipped/invalid rows with reasons
-- Web scraping: prefer Playwright, write outputs to `data/` or `output/`, and log skips/errors
-- Install scripts: prefer `~/.local/bin` placement and explicit shell-config edits; do not modify configs without approval
 
 # Tone
 In all of your conversations with the user:
@@ -52,6 +65,7 @@ In all of your conversations with the user:
 - Make reasonable assumptions when risk is low, but state them explicitly
 - For high-risk ambiguity, ask before proceeding
 - Record key decisions in docs when they affect behavior or workflow
+- Ask for approval before installing or upgrading system/global packages or modifying shell configs
 
 # General Guiding Principles
 The following principles are applicable for all task type and project type:
@@ -137,7 +151,6 @@ The following philosophies are applicable when the task type and project type is
 
 # Package Manager
 - You are equipped with `brew`, `npm`, and `uv` to install and upgrade system / global packages
-- Ask for approval before installing or upgrading system/global packages or modifying shell configs
 
 # CSV
 - You are equipped with the following CLIs to work with CSV files: csvkit's `in2csv`, `sql2csv`, `csvclean`, `csvcut`, `csvgrep`, `csvjoin`, `csvsort`, `csvstack`, `csvformat`, `csvjson`, `csvlook`, `csvpy`, `csvsql`, `csvstat`; `qsv`; `xan`

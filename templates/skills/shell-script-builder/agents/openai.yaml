@@ -1,0 +1,4 @@
+interface:
+  display_name: "Shell Script Builder"
+  short_description: "Build portable Bash/Zsh scripts safely"
+  default_prompt: "Design or update Bash/Zsh-compatible scripts and installers with idempotence and clear outputs."

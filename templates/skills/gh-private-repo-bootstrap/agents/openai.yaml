@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub Private Repo Bootstrap"
+  short_description: "Create private repo and push main"
+  default_prompt: "Create a private GitHub repo from this folder, set origin, and push main with upstream."
