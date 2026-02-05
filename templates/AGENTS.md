@@ -66,6 +66,7 @@ In all of your conversations with the user:
 - For high-risk ambiguity, ask before proceeding
 - Record key decisions in docs when they affect behavior or workflow
 - Ask for approval before installing or upgrading system/global packages or modifying shell configs
+- Proactively install project-local dependencies and dev tooling without asking, using the project package manager or venv; only ask for system/global installs or shell config changes
 
 # General Guiding Principles
 The following principles are applicable for all task type and project type:
@@ -111,7 +112,8 @@ The following philosophies are applicable when the task type and project type is
 
 # Quality Gates
 - Order: format → lint → typecheck → test
-- If a tool is missing, ask before installing
+- If a tool is missing, install and configure it locally by default (add minimal config + dev deps). Only ask before system/global installs
+- If project dependencies are missing, install them before running gates (e.g., `uv pip install -e ".[dev]"`, `npm install`)
 - Do not skip gates unless the user explicitly asks
 
 # Python
@@ -123,11 +125,13 @@ The following philosophies are applicable when the task type and project type is
   - It is common for `python` and `python3` to be a shell alias. Run `type python` and `type python3` to check whether shell alias is overriding venv settings
   - Use absolute path of the Python in the virtual environment if needed 
 - Proactively install and setup Linters (`ruff`), Formatters (`ruff format`), Type Checkers (`ty`), and Test Runners (`pytest`). Proactively write tests during development. Follow the Quality Gates order
+- If tooling or config is missing, add minimal `pyproject.toml` configuration and dev dependencies locally, then run the full quality gates
 - Use `uv tool install` to setup our Python project deliverables when suitable and applicable. Install from local source (`uv tool install . --reinstall --no-cache`) during local development, or install from GitHub over HTTPS during new setup
 
 # JavaScript and TypeScript
 - You are equipped with the following CLIs to work on JavaScript and TypeScript projects: `node`, `npm`, `npx`, `bun`
 - Proactively install and setup Linters (ESLint and typescript-eslint), Formatters (Prettier), Type Checkers (`tsc -p tsconfig.json --noEmit`), and Test Runners (node:test, Vitest, Jest). Proactively write tests during development. Follow the Quality Gates order
+- If tooling or config is missing, add minimal configs (ESLint/Prettier/tsconfig/test) and dev dependencies locally, then run the full quality gates
 
 # Source Control
 - Do NOT stage, commit, or push files unless explicitly instructed by the human user
