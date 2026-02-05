@@ -28,10 +28,18 @@ if [[ "$DELETE_MISSING_SKILLS" != "true" ]]; then
 fi
 
 if [ -t 1 ] && command -v tput &> /dev/null; then
+    COLOR_INFO="$(tput setaf 6)"
+    COLOR_OK="$(tput setaf 2)"
+    COLOR_NEW="$(tput setaf 2)"
     COLOR_WARN="$(tput setaf 1)"
+    COLOR_ERROR="$(tput setaf 1)"
     COLOR_RESET="$(tput sgr0)"
 else
+    COLOR_INFO=""
+    COLOR_OK=""
+    COLOR_NEW=""
     COLOR_WARN=""
+    COLOR_ERROR=""
     COLOR_RESET=""
 fi
 
@@ -62,7 +70,7 @@ while IFS='|' read -r agent_name target_agents_md target_skills_dir || [ -n "$ag
         # Ensure parent directory exists (optional but good practice)
         agent_dir=$(dirname "$target_agents_md")
         if [ ! -d "$agent_dir" ]; then
-            echo "     [INFO] Parent directory $agent_dir does not exist. Creating..."
+            echo "     ${COLOR_INFO}[INFO] Parent directory $agent_dir does not exist. Creating...${COLOR_RESET}"
             mkdir -p "$agent_dir"
         fi
 
@@ -70,30 +78,30 @@ while IFS='|' read -r agent_name target_agents_md target_skills_dir || [ -n "$ag
         if [ -f "$target_agents_md" ]; then
             # Check for differences
             if diff "$target_agents_md" "$SOURCE_AGENTS_MD" > /dev/null; then
-                echo "     [SKIP] Files are identical."
+                echo "     ${COLOR_INFO}[SKIP] Files are identical.${COLOR_RESET}"
                 should_copy=false
             else
-                echo "     [DIFF] Changes detected in AGENTS.md"
+                echo "     ${COLOR_INFO}[DIFF] Changes detected in AGENTS.md${COLOR_RESET}"
             fi
         else
-            echo "     [NEW] Target file does not exist. Will create."
+            echo "     ${COLOR_NEW}[NEW] Target file does not exist. Will create.${COLOR_RESET}"
         fi
 
         if [ "$should_copy" = "true" ]; then
             cp "$SOURCE_AGENTS_MD" "$target_agents_md"
             if [ $? -eq 0 ]; then
-                echo "     [OK] Copied AGENTS.md"
+                echo "     ${COLOR_OK}[OK] Copied AGENTS.md${COLOR_RESET}"
                 # Add to chezmoi if enabled
                 if [ "$USE_CHEZMOI" = "true" ]; then
                     if command -v chezmoi &> /dev/null; then
                         chezmoi add "$target_agents_md"
-                        echo "     [OK] Added to chezmoi"
+                        echo "     ${COLOR_OK}[OK] Added to chezmoi${COLOR_RESET}"
                     else
-                        echo "     [WARN] chezmoi not found, skipping 'chezmoi add'"
+                        echo "     ${COLOR_WARN}[WARN] chezmoi not found, skipping 'chezmoi add'${COLOR_RESET}"
                     fi
                 fi
             else
-                echo "     [ERROR] Failed to copy AGENTS.md"
+                echo "     ${COLOR_ERROR}[ERROR] Failed to copy AGENTS.md${COLOR_RESET}"
             fi
         fi
     else
@@ -107,7 +115,7 @@ while IFS='|' read -r agent_name target_agents_md target_skills_dir || [ -n "$ag
         
         # Create directory if it doesn't exist
         if [ ! -d "$target_skills_dir" ]; then
-            echo "     [INFO] Directory does not exist. Creating: $target_skills_dir"
+            echo "     ${COLOR_INFO}[INFO] Directory does not exist. Creating: $target_skills_dir${COLOR_RESET}"
             mkdir -p "$target_skills_dir"
         fi
 
@@ -123,13 +131,13 @@ while IFS='|' read -r agent_name target_agents_md target_skills_dir || [ -n "$ag
                     if [ -d "$target_skill_path" ]; then
                         # Compare specific skill directory
                         if diff -qr "$target_skill_path" "$source_skill_path" > /dev/null 2>&1; then
-                            echo "     [SKIP] Skill '$skill_name' is identical."
+                            echo "     ${COLOR_INFO}[SKIP] Skill '$skill_name' is identical.${COLOR_RESET}"
                             should_copy_skill=false
                         else
-                            echo "     [DIFF] Changes detected in skill '$skill_name'"
+                            echo "     ${COLOR_INFO}[DIFF] Changes detected in skill '$skill_name'${COLOR_RESET}"
                         fi
                     else
-                        echo "     [NEW]  Skill '$skill_name' does not exist in target. Will create."
+                        echo "     ${COLOR_NEW}[NEW]  Skill '$skill_name' does not exist in target. Will create.${COLOR_RESET}"
                     fi
 
                     if [ "$should_copy_skill" = "true" ]; then
@@ -138,18 +146,18 @@ while IFS='|' read -r agent_name target_agents_md target_skills_dir || [ -n "$ag
                         cp -R "$source_skill_path" "$target_skills_dir/"
                         
                         if [ $? -eq 0 ]; then
-                            echo "     [OK]   Copied skill '$skill_name'"
+                            echo "     ${COLOR_OK}[OK]   Copied skill '$skill_name'${COLOR_RESET}"
                             # Add to chezmoi if enabled
                             if [ "$USE_CHEZMOI" = "true" ]; then
                                 if command -v chezmoi &> /dev/null; then
                                     chezmoi add "$target_skill_path"
-                                    echo "     [OK]   Added '$skill_name' to chezmoi"
+                                    echo "     ${COLOR_OK}[OK]   Added '$skill_name' to chezmoi${COLOR_RESET}"
                                 else
-                                    echo "     [WARN] chezmoi not found, skipping 'chezmoi add'"
+                                    echo "     ${COLOR_WARN}[WARN] chezmoi not found, skipping 'chezmoi add'${COLOR_RESET}"
                                 fi
                             fi
                         else
-                            echo "     [ERROR] Failed to copy skill '$skill_name'"
+                            echo "     ${COLOR_ERROR}[ERROR] Failed to copy skill '$skill_name'${COLOR_RESET}"
                         fi
                     fi
                 fi
@@ -174,21 +182,21 @@ while IFS='|' read -r agent_name target_agents_md target_skills_dir || [ -n "$ag
                                     chezmoi destroy --force "$target_skill_path"
                                     if [ $? -eq 0 ]; then
                                         removed_by_chezmoi="true"
-                                        echo "     [OK]   Removed stale skill '$skill_name' via chezmoi"
+                                        echo "     ${COLOR_OK}[OK]   Removed stale skill '$skill_name' via chezmoi${COLOR_RESET}"
                                     else
-                                        echo "     [WARN] Failed to remove '$skill_name' via chezmoi; falling back to rm -rf"
+                                        echo "     ${COLOR_WARN}[WARN] Failed to remove '$skill_name' via chezmoi; falling back to rm -rf${COLOR_RESET}"
                                     fi
                                 else
-                                    echo "     [WARN] chezmoi not found, falling back to rm -rf"
+                                    echo "     ${COLOR_WARN}[WARN] chezmoi not found, falling back to rm -rf${COLOR_RESET}"
                                 fi
                             fi
 
                             if [ "$removed_by_chezmoi" = "false" ]; then
                                 rm -rf "$target_skill_path"
                                 if [ $? -eq 0 ]; then
-                                    echo "     [OK]   Removed stale skill '$skill_name'"
+                                    echo "     ${COLOR_OK}[OK]   Removed stale skill '$skill_name'${COLOR_RESET}"
                                 else
-                                    echo "     [ERROR] Failed to remove stale skill '$skill_name'"
+                                    echo "     ${COLOR_ERROR}[ERROR] Failed to remove stale skill '$skill_name'${COLOR_RESET}"
                                 fi
                             fi
                         else
@@ -198,7 +206,7 @@ while IFS='|' read -r agent_name target_agents_md target_skills_dir || [ -n "$ag
                 fi
             done
         else
-             echo "     [ERROR] Failed to create target directory $target_skills_dir"
+             echo "     ${COLOR_ERROR}[ERROR] Failed to create target directory $target_skills_dir${COLOR_RESET}"
         fi
     else
         echo "  -> Skipping Skills (not configured)"
