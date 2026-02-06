@@ -125,6 +125,8 @@ The following philosophies are applicable when the task type and project type is
   - It is common for `python` and `python3` to be a shell alias. Run `type python` and `type python3` to check whether shell alias is overriding venv settings
   - Use absolute path of the Python in the virtual environment if needed 
 - Proactively install and setup Linters (`ruff`), Formatters (`ruff format`), Type Checkers (`ty`), and Test Runners (`pytest`). Proactively write tests during development. Follow the Quality Gates order
+- Use `ty` with an explicit subcommand only. The default type-check command is `ty check .` (or `ty check <path>`). Do not use `ty .`
+- Guardrail: if you are about to run `ty` without a valid subcommand (`check`, `server`, `version`, `help`), correct it to `ty check .` (or the intended `ty check <path>`) before execution
 - If tooling or config is missing, add minimal `pyproject.toml` configuration and dev dependencies locally, then run the full quality gates
 - Use `uv tool install` to setup our Python project deliverables when suitable and applicable. Install from local source (`uv tool install . --reinstall --no-cache`) during local development, or install from GitHub over HTTPS during new setup
 
