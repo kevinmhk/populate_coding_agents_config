@@ -20,12 +20,13 @@
 - JavaScript and TypeScript Test Runner: node:test, Vitest, Jest
 - CSS Framework: Bootstrap, Tailwind
 - Component Library: Ant Design
-- CLI Library: Typer
+- CLI Library: Typer, Click
 - TUI Library: Bubble Tea
-- Backend: Firebase
+- Backend: Firebase, Supabase
 - Cloud Providers: GCP, AWS
 - Deployment: Vercel, Cloudflare Pages
-- Cross-Platform UI Framework: Flutter
+- Cross-Platform UI Framework for Web/Mobile: Flutter, React / React Native + Expo
+- Cross-Platform UI Framework for Desktop: Flutter, Electron, Tauri
 - Source Control: Git
 - Database: SQLite, PostgreSQL, DuckDB, Supabase
 - Diagram and Chart: Mermaid
@@ -48,6 +49,19 @@
 - Use `frontend-design` for high-quality frontend UI design and implementation
 - Use `pdf` for PDF extraction, edits, and form handling
 - Use `create-plan` only when the user explicitly asks for a plan
+- Use `crawlee-bootstrap-multidomain` for new repositories: scaffold Crawlee from zero with multi-domain-ready architecture, env/config contract, and quality gates.
+- Use `crawlee-multidomain-hardening` for existing Crawlee repos: enforce queue isolation, domain routing correctness, metrics semantics, and config/runtime doc parity.
+- Use `extractor-onboarding-pack` for adding a new domain extractor: module, sample fixture, offline validator, selector doc, URL pattern update, and tests.
+
+## Skill Trigger Rules
+- If the user asks to create a new crawler repo or “start from scratch”, use `crawlee-bootstrap-multidomain`.
+- If the user asks to fix scaling, cross-domain contamination, orchestration, or config confusion in an existing crawler, use `crawlee-multidomain-hardening`.
+- If the user asks to add support for a new target domain/site, use `extractor-onboarding-pack`.
+- If a request spans all three concerns, execute skills in this order:
+  1. `crawlee-bootstrap-multidomain`
+  2. `crawlee-multidomain-hardening`
+  3. `extractor-onboarding-pack`
+
 
 # Global Defaults
 - License: default to `MIT` for public repositories unless explicitly overridden
@@ -151,6 +165,47 @@ The following philosophies are applicable when the task type and project type is
 - You have access to the `gh` command for interacting with GitHub
 - Use Conventional Commits (feat|fix|refactor|build|ci|chore|docs|style|perf|test|revert)
 - By default you are the one to write the commit message, unless the user explicitly asks to write it himself
+
+## Crawlee and Scraping Global Standards
+
+- For any concurrent Crawlee execution in one process, always assign a dedicated `RequestQueue` per crawler/domain. Never rely on the implicit `default` queue in parallel mode.
+- If runtime behavior depends on `.env`, the entrypoint must load environment variables explicitly.
+- Environment precedence must be deterministic and documented (for example: `TARGET_DOMAINS` overrides `TARGET_DOMAIN`).
+- Metrics semantics must be defined before implementation:
+  - Use request/page-level counters for summary fields named `pages*`.
+  - Count each failure in one place only.
+  - Do not mix retry-attempt failures with terminal page failure counters unless explicitly named as `attempt*`.
+- If a config flag is unsupported by the runtime/tool, keep docs and runtime behavior aligned:
+  - Docs must state the flag is reserved/ignored.
+  - Runtime must emit a clear warning when the flag is set.
+- Any extractor/domain implementation is not complete until all of the following exist:
+  - Extractor module.
+  - Local sample HTML fixture.
+  - Offline validator script using local fixture.
+  - Selector reference documentation.
+  - URL pattern documentation/registry entry.
+  - Tests (unit/helper/integration as applicable).
+
+## Crawlee Delivery Workflow (Default)
+
+Use this order for crawler projects unless the user explicitly asks otherwise:
+
+1. Bootstrap crawler project structure and quality gates.
+2. Harden for multi-domain operation.
+3. Onboard one extractor/domain at a time.
+4. Run quality gates in order: `format` -> `lint` -> `typecheck` -> `test`.
+5. Update docs and progress checklists after each completed step.
+
+## Scraping Definition of Done
+
+A scraping task is done only when:
+
+- Code changes are implemented.
+- Quality gates pass.
+- Docs are updated to match runtime behavior.
+- Validation artifacts exist (sample fixture + validator/test).
+- Summaries/log semantics are coherent with metric definitions.
+
 
 # File and Text Search
 - You are equipped with the following CLIs to perform fast file and text search: `fd`, `fzf`, `rg`
