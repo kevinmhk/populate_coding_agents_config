@@ -47,6 +47,10 @@
 - Use `agent-browser` for browser automation, screenshots, and web extraction
 - Use `playwright-cli` for Playwright-based browser automation tasks
 - Use `frontend-design` for high-quality frontend UI design and implementation
+- Use `composition-patterns` for React component architecture refactors (compound components, context/provider interfaces, explicit variants, and reducing boolean-prop branching)
+- Use `react-best-practices` for React/Next.js performance optimization and refactoring (waterfalls, bundle size, server/client data fetching, rerender and rendering efficiency)
+- Use `react-native-skills` for React Native/Expo implementation and optimization (list/scroll performance, animations, native navigation/UI patterns, and mobile-specific state/rendering rules)
+- Use `web-design-guidelines` for web UI/UX/accessibility compliance reviews against the latest Web Interface Guidelines
 - Use `pdf` for PDF extraction, edits, and form handling
 - Use `create-plan` only when the user explicitly asks for a plan
 - Use `crawlee-bootstrap-multidomain` for new repositories: scaffold Crawlee from zero with multi-domain-ready architecture, env/config contract, and quality gates.
@@ -54,9 +58,34 @@
 - Use `extractor-onboarding-pack` for adding a new domain extractor: module, sample fixture, offline validator, selector doc, URL pattern update, and tests.
 
 ## Skill Trigger Rules
+- If the user asks to prepare a repository for publishing/public release (AGENTS/README/LICENSE/.gitignore, publish checklist, release packaging), use `repo-publish-pack`.
+- If the user asks to create a private GitHub repository and wire `origin`, use `gh-private-repo-bootstrap`.
+- If the user asks to stage/commit/push, create tags, or cut a GitHub release, use `git-release-ops`.
+- If the user asks for Bash/Zsh scripts, installers, or shell automation, use `shell-script-builder`.
+- If the user asks to parse, transform, normalize, or validate CSV data, use `csv-transformer`.
+- If the user asks to scrape or extract links/URLs with Playwright, use `playwright-link-extractor`.
+- If the user asks to scaffold a Flutter web app with Firebase integration, use `flutter-firebase-webapp-bootstrap`.
+- If the user asks for browser automation, interactive web navigation, screenshots, form-filling, or web extraction without requiring Playwright code deliverables, use `agent-browser`.
+- If the user asks for Playwright-based browser automation or tests with script/code deliverables, use `playwright-cli`.
+- If the user asks to design or implement frontend UI pages/components, use `frontend-design`.
+- If the user asks to extract from, edit, split/merge, or fill PDF forms, use `pdf`.
+- If the user explicitly asks for a plan, use `create-plan`.
 - If the user asks to create a new crawler repo or “start from scratch”, use `crawlee-bootstrap-multidomain`.
 - If the user asks to fix scaling, cross-domain contamination, orchestration, or config confusion in an existing crawler, use `crawlee-multidomain-hardening`.
 - If the user asks to add support for a new target domain/site, use `extractor-onboarding-pack`.
+- If the user asks to refactor React component architecture (for example: too many boolean props, need compound components, or context/provider redesign), use `composition-patterns`.
+- If the user asks to optimize React/Next.js performance (for example: waterfalls, bundle size, rerenders, rendering speed, or data-fetching strategy), use `react-best-practices`.
+- If the user asks to build, refactor, or optimize React Native/Expo apps (for example: list performance, animations, native navigation/UI, or mobile rendering constraints), use `react-native-skills`.
+- If the user asks to review or audit web UI/UX/accessibility/design quality, use `web-design-guidelines`.
+- If a request spans React architecture and React/Next.js performance, execute skills in this order:
+  1. `composition-patterns`
+  2. `react-best-practices`
+- If a request can match both browser automation skills, execute in this order:
+  1. `playwright-cli` when code/script output is required
+  2. `agent-browser` when direct interactive browsing/screenshot extraction is the main task
+- If a request includes implementation plus a web UI compliance audit, execute in this order:
+  1. implementation skill(s): `frontend-design`, `composition-patterns`, `react-best-practices`, and/or `react-native-skills` as applicable
+  2. `web-design-guidelines` for final review
 - If a request spans all three concerns, execute skills in this order:
   1. `crawlee-bootstrap-multidomain`
   2. `crawlee-multidomain-hardening`
