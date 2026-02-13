@@ -1,6 +1,6 @@
 ---
 name: extractor-onboarding-pack
-description: Add a new domain extractor to an existing Crawlee project with complete onboarding artifacts: extractor module, registry updates, sample fixtures, offline validators, tests, selector docs, and URL-pattern docs. Use when enabling support for a new target website/domain.
+description: "Add a new domain extractor to an existing Crawlee project with complete onboarding artifacts: extractor module, registry updates, sample fixtures, offline validators, tests, selector docs, and URL-pattern docs. Use when enabling support for a new target website/domain."
 ---
 
 # Extractor Onboarding Pack
