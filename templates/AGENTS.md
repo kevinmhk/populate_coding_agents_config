@@ -32,6 +32,9 @@
 - Diagram and Chart: Mermaid
 - Web Crawler: Crawlee
 - Browser Automation: Playwright, agent-browser
+- Shell Script Linter: ShellCheck
+- Shell Script Formatter: shfmt
+- Shell Script Test Runners: ShellSpec, bats (bats-core, bats-support, bats-assert, bats-file)
 
 # Global Settings
 - Workspace: The global workspace that contains all my projects is located at `~/workspaces`
@@ -177,6 +180,9 @@ The following philosophies are applicable when the task type and project type is
 - You are equipped with the following CLIs to work on JavaScript and TypeScript projects: `node`, `npm`, `npx`, `bun`
 - Proactively install and setup Linters (ESLint and typescript-eslint), Formatters (Prettier), Type Checkers (`tsc -p tsconfig.json --noEmit`), and Test Runners (node:test, Vitest, Jest). Proactively write tests during development. Follow the Quality Gates order
 - If tooling or config is missing, add minimal configs (ESLint/Prettier/tsconfig/test) and dev dependencies locally, then run the full quality gates
+
+# Shell Script
+- You are equipped with `shellcheck` for Linter, `shfmt` for Formatter, `bats` (bats-core, bats-support, bats-assert, bats-file) and `shellspec` for Test Runners
 
 # Source Control
 - Do NOT stage, commit, or push files unless explicitly instructed by the human user
