@@ -1,0 +1,4 @@
+interface:
+  display_name: "Action Items Expander"
+  short_description: "Expand markdown action items into handoff-ready subtasks."
+  default_prompt: "Review a markdown plan and expand each action item into detailed, actionable subtasks for a newcomer human or coding agent."

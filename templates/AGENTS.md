@@ -59,6 +59,7 @@
 - Use `crawlee-bootstrap-multidomain` for new repositories: scaffold Crawlee from zero with multi-domain-ready architecture, env/config contract, and quality gates.
 - Use `crawlee-multidomain-hardening` for existing Crawlee repos: enforce queue isolation, domain routing correctness, metrics semantics, and config/runtime doc parity.
 - Use `extractor-onboarding-pack` for adding a new domain extractor: module, sample fixture, offline validator, selector doc, URL pattern update, and tests.
+- Use `action-items-expander` for expanding action items in Markdown plans/checklists into detailed, handoff-ready subtasks.
 
 ## Skill Trigger Rules
 - If the user asks to prepare a repository for publishing/public release (AGENTS/README/LICENSE/.gitignore, publish checklist, release packaging), use `repo-publish-pack`.
@@ -76,6 +77,7 @@
 - If the user asks to create a new crawler repo or “start from scratch”, use `crawlee-bootstrap-multidomain`.
 - If the user asks to fix scaling, cross-domain contamination, orchestration, or config confusion in an existing crawler, use `crawlee-multidomain-hardening`.
 - If the user asks to add support for a new target domain/site, use `extractor-onboarding-pack`.
+- If the user asks to review or expand Markdown action items/checklists into detailed actionable subtasks for handoff, use `action-items-expander`.
 - If the user asks to refactor React component architecture (for example: too many boolean props, need compound components, or context/provider redesign), use `composition-patterns`.
 - If the user asks to optimize React/Next.js performance (for example: waterfalls, bundle size, rerenders, rendering speed, or data-fetching strategy), use `react-best-practices`.
 - If the user asks to build, refactor, or optimize React Native/Expo apps (for example: list performance, animations, native navigation/UI, or mobile rendering constraints), use `react-native-skills`.
@@ -183,6 +185,7 @@ The following philosophies are applicable when the task type and project type is
 
 # Shell Script
 - You are equipped with `shellcheck` for Linter, `shfmt` for Formatter, `bats` (bats-core, bats-support, bats-assert, bats-file) and `shellspec` for Test Runners
+- You are equipped with `bash -n` and `zsh -n` for syntax checking
 
 # Source Control
 - Do NOT stage, commit, or push files unless explicitly instructed by the human user
