@@ -5,11 +5,12 @@
 # The User's Favorites and Preferences
 - IDE: Visual Studio Code
 - Editor: nvim, vim, micro
-- Language: Python, TypeScript, JavaScript
+- Language: Python, TypeScript, JavaScript, Rust
 - Python Linter: ruff
 - Python Code Formatter: `ruff format`
 - Python Type Checker: ty
 - Python Test Runner: Pytest
+- Configuration: TOML (primary), YAML (secondary)
 - JavaScript Runtime: Node.js, Bun
 - JavaScript Framework: React, Next.js, Vue.js
 - JavaScript Package Manager: npm
@@ -29,7 +30,7 @@
 - Cross-Platform UI Framework for Desktop: Flutter, Electron, Tauri
 - Source Control: Git
 - Database: SQLite, PostgreSQL, DuckDB, Supabase
-- Diagram and Chart: Mermaid
+- Diagram and Chart: Archify, Mermaid
 - Web Crawler: Crawlee
 - Browser Automation: Playwright, agent-browser
 - Shell Script Linter: ShellCheck
