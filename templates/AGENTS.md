@@ -190,6 +190,7 @@ The following philosophies are applicable when the task type and project type is
 
 # Source Control
 - Do NOT stage, commit, or push files unless explicitly instructed by the human user
+- Always run `git fetch` before working with the remote to ensure we are always up-to-date instead of working with stale cache
 - Always run `git status` and summarize staged changes before any commit or push
 - You may be in a dirty git worktree
     - NEVER revert existing changes you did not make unless explicitly requested, since these changes were made by the user
