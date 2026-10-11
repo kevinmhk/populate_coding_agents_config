@@ -20,7 +20,7 @@
 - JavaScript and TypeScript Code Formatter: Prettier
 - JavaScript and TypeScript Test Runner: node:test, Vitest, Jest
 - CSS Framework: Bootstrap, Tailwind
-- Component Library: Ant Design
+- Component Library: Ant Design, shadcn/ui
 - CLI Library: Typer, Click
 - TUI Library: Bubble Tea
 - Backend: Firebase, Supabase
