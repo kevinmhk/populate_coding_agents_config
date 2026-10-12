@@ -177,19 +177,34 @@ The following philosophies are applicable when the task type and project type is
   - It is common for `python` and `python3` to be a shell alias. Run `type python` and `type python3` to check whether shell alias is overriding venv settings
   - Use absolute path of the Python in the virtual environment if needed 
 - Proactively install and setup Linters (`ruff`), Formatters (`ruff format`), Type Checkers (`ty`), and Test Runners (`pytest`). Proactively write tests during development. Follow the Quality Gates order
+- Use Ruff defaults plus I, UP, and B lint rules
+- Use Ruff format defaults. Disable preview and unsafe fixes
 - Use `ty` with an explicit subcommand only. The default type-check command is `ty check .` (or `ty check <path>`). Do not use `ty .`
 - Guardrail: if you are about to run `ty` without a valid subcommand (`check`, `server`, `version`, `help`), correct it to `ty check .` (or the intended `ty check <path>`) before execution
+- Use ty default diagnostics. Fail on warnings
 - If tooling or config is missing, add minimal `pyproject.toml` configuration and dev dependencies locally, then run the full quality gates
 - Use `uv tool install` to setup our Python project deliverables when suitable and applicable. Install from local source (`uv tool install . --reinstall --no-cache`) during local development, or install from GitHub over HTTPS during new setup
 
 # JavaScript and TypeScript
 - You are equipped with the following CLIs to work on JavaScript and TypeScript projects: `node`, `npm`, `npx`, `bun`
 - Proactively install and setup Linters (ESLint and typescript-eslint), Formatters (Prettier), Type Checkers (`tsc -p tsconfig.json --noEmit`), and Test Runners (node:test, Vitest, Jest). Proactively write tests during development. Follow the Quality Gates order
+- JavaScript: use ESLint recommended rules
+- TypeScript: use ESLint recommended and typescript-eslint recommendedTypeChecked with projectService enabled.
+- ESLint must use --max-warnings 0
+- TypeScript: enable strict, noUncheckedIndexedAccess, and exactOptionalPropertyTypes. Check with tsc -p tsconfig.json --noEmit.
+- JavaScript and TypeScript: use Prettier defaults. Apply eslint-config-prettier last when combining it with ESLint.
 - If tooling or config is missing, add minimal configs (ESLint/Prettier/tsconfig/test) and dev dependencies locally, then run the full quality gates
 
 # Shell Script
 - You are equipped with `shellcheck` for Linter, `shfmt` for Formatter, `bats` (bats-core, bats-support, bats-assert, bats-file) and `shellspec` for Test Runners
-- You are equipped with `bash -n` and `zsh -n` for syntax checking
+- You are equipped with `bash -n` and `zsh -n` for syntax checking. Use the intended shell for syntax checks: bash -n, sh -n, or zsh -n. Syntax checks do not replace tests.
+- Declare the intended shell with a shebang. Use syntax compatible with that shell and the minimum supported shell version
+- Use ShellCheck default checks with --severity=style. Fail on all reported diagnostics. Do not enable all optional checks
+- Use shfmt with -i 2 -ci -bn: two-space indentation, indented case branches, and continuation operators on the next line
+- Use the same formatter flags in editors and CI
+- Do not use shfmt simplification or minification by default
+- For sourced files without a shebang, specify the intended dialect
+- Use narrow ShellCheck suppressions with a documented reason
 
 # Source Control
 - Do NOT stage, commit, or push files unless explicitly instructed by the human user
