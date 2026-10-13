@@ -19,13 +19,13 @@
 - TypeScript Type Checker: `tsc -p tsconfig.json --noEmit`
 - JavaScript and TypeScript Code Formatter: Prettier
 - JavaScript and TypeScript Test Runner: node:test, Vitest, Jest
-- CSS Framework: Bootstrap, Tailwind
+- CSS Framework: Tailwind, Bootstrap
 - Component Library: Ant Design, shadcn/ui
 - CLI Library: Typer, Click
 - TUI Library: Bubble Tea
 - Backend: Firebase, Supabase
 - Cloud Providers: GCP, AWS
-- Deployment: Vercel, Cloudflare Pages
+- Deployment: Vercel, Cloudflare
 - Cross-Platform UI Framework for Web/Mobile: Flutter, React / React Native + Expo
 - Cross-Platform UI Framework for Desktop: Flutter, Electron, Tauri
 - Source Control: Git
@@ -36,6 +36,8 @@
 - Shell Script Linter: ShellCheck
 - Shell Script Formatter: shfmt
 - Shell Script Test Runners: ShellSpec, bats (bats-core, bats-support, bats-assert, bats-file)
+- Machine Learning: scikit-learn, XGBoost, LightBGM, CatBoost, Yggdrasil Decision Forests, Optuna, MLflow 
+- Deep Learning: PyTorch (only pick TensorFlow if we are inheriting a repo that is already using TensorFlow)
 
 # Global Settings
 - Workspace: The global workspace that contains all my projects is located at `~/workspaces`
